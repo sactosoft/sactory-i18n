@@ -1,0 +1,22 @@
+{
+	"name": "@sactory/i18n",
+	"version": "0.6.0",
+	"description": "Internationalization utilities for Sactory applications",
+	"scripts": {
+		"dist": "node ./dist.js"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/sactory/sactory-plus.git"
+	},
+	"author": "Mark White",
+	"license": "MIT",
+	"bugs": {
+		"url": "https://github.com/sactory/sactory-plus/issues"
+	},
+	"homepage": "https://github.com/sactory/sactory-plus#readme",
+	"devDependencies": {
+		"sactory": "^0.116.0",
+		"uglify-js": "^3.6.0"
+	}
+}
