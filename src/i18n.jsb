@@ -51,7 +51,7 @@ Language.prototype.get = function(key, args, lang){
 
 Sactory.addWidget("lang", function(@, attrs){
 
-	if(!@@) @@ = <:fragment />;
+	if(!@.element) @.element = <:fragment />;
 
 	if(typeof attrs == "string") attrs = {text: attrs};
 
@@ -72,14 +72,14 @@ Sactory.addWidget("lang", function(@, attrs){
 		var value = @watch.deps(instance.get(attrs[name], args), deps);
 
 		if(name == "text" || name == "html") {
-			<@ ~[name]=value />
+			<:element ~[name]=value />
 		} else {
-			<@ [name]=value />
+			<:element [name]=value />
 		}
 
 	});
 
-	return @@;
+	return @.element;
 
 });
 
