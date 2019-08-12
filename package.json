@@ -1,6 +1,6 @@
 {
 	"name": "@sactory/i18n",
-	"version": "0.7.0",
+	"version": "0.8.0",
 	"description": "Internationalization utilities for Sactory applications",
 	"scripts": {
 		"dist": "node ./dist.js"
@@ -16,7 +16,7 @@
 	},
 	"homepage": "https://github.com/sactory/sactory-i18n#readme",
 	"devDependencies": {
-		"sactory": "^0.120.1",
+		"sactory": "^0.124.0",
 		"uglify-js": "^3.6.0"
 	}
 }
