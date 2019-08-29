@@ -2,12 +2,12 @@ var instance;
 
 function Language(dict, version) {
 	this.dict = dict;
-	this.locale = @watch(this.getDefaultLocale(), "sactory.i18n.locale" + (version || ""));
+	this.locale = (&this.getDefaultLocale()).localStorage("sactory.i18n.locale", version);
 	instance = this;
 }
 
 Language.prototype.getDefaultLocale = function(){
-	var langs = this.languages.map(function(lang){
+	var langs = this.languages.map(lang => {
 		var cased = lang.toLowerCase();
 		var sep = cased.indexOf("-");
 		if(sep == -1) {
@@ -30,13 +30,13 @@ Language.prototype.getDefaultLocale = function(){
 };
 
 Object.defineProperty(Language.prototype, "languages", {
-	get: function(){
+	get() {
 		return Object.keys(this.dict);
 	}
 });
 
 Language.prototype.get = function(key, args, lang){
-	var ret = this.dict[lang || this.^locale][key];
+	var ret = this.dict[lang || this.*locale][key];
 	if(ret) {
 		if(args) {
 			for(var key in args) {
@@ -49,41 +49,33 @@ Language.prototype.get = function(key, args, lang){
 	}
 };
 
-Sactory.addWidget("lang", function(@, attrs){
-
-	if(!@.element) @.element = <:fragment />;
+Sactory.addWidget("lang", function(attrs){
 
 	if(typeof attrs == "string") attrs = {text: attrs};
 
 	var args = attrs.args;
 	delete attrs.args;
 
-	Object.keys(attrs).forEach(function(name){
-
-		var deps = [instance.locale];
-		if(args) {
-			for(var n in args) {
-				var arg = args[n];
-				if(Sactory.isObservable(arg)) {
-					deps.push(arg);
+	return <?:fragment>
+		for(var name in attrs) {
+			var deps = [instance.locale];
+			if(args) {
+				for(var n in args) {
+					var arg = args[n];
+					if(Sactory.isObservable(arg)) {
+						deps.push(arg);
+					}
 				}
 			}
+			var value = Sactory.bo(() => instance.get(attrs[name], args), deps);
+			if(name == "text" || name == "html") {
+				<:element ~[name]=value />
+			} else {
+				<:element [name]=value />
+			}
 		}
-		var value = @watch.deps(instance.get(attrs[name], args), deps);
-
-		if(name == "text" || name == "html") {
-			<:element ~[name]=value />
-		} else {
-			<:element [name]=value />
-		}
-
-	});
-
-	return @.element;
+	</:fragment>
 
 });
 
-var ret = {};
-ret["default"] = Language;
-ret.Language = Language;
-return ret;
+return { default: Language, Language };
