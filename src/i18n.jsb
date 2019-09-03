@@ -49,25 +49,26 @@ Language.prototype.get = function(key, args, lang){
 	}
 };
 
-Sactory.addWidget("lang", function(attrs){
+Sactory.addWidget("lang", attrs => {
 
 	if(typeof attrs == "string") attrs = {text: attrs};
 
 	var args = attrs.args;
 	delete attrs.args;
 
-	return <?:fragment>
-		for(var name in attrs) {
-			var deps = [instance.locale];
-			if(args) {
-				for(var n in args) {
-					var arg = args[n];
-					if(Sactory.isObservable(arg)) {
-						deps.push(arg);
-					}
-				}
+	var deps = [instance.locale];
+	if(args) {
+		for(var key in args) {
+			var arg = args[key];
+			if(Sactory.isObservable(arg)) {
+				deps.push(arg);
 			}
-			var value = Sactory.bo(() => instance.get(attrs[name], args), deps);
+		}
+	}
+
+	return <?:fragment>
+		foreach(attrs as name: attr) {
+			var value = Sactory.bo(() => instance.get(attr, args), deps);
 			if(name == "text" || name == "html") {
 				<:element ~[name]=value />
 			} else {
