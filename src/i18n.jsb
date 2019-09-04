@@ -66,7 +66,7 @@ Sactory.addWidget("lang", attrs => {
 		}
 	}
 
-	return <?:fragment>
+	return <?#document-fragment>
 		foreach(attrs as name: attr) {
 			var value = Sactory.bo(() => instance.get(attr, args), deps);
 			if(name == "text" || name == "html") {
@@ -75,7 +75,7 @@ Sactory.addWidget("lang", attrs => {
 				<:element [name]=value />
 			}
 		}
-	</:fragment>
+	</#document-fragment>
 
 });
 
