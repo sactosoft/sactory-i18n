@@ -1,6 +1,6 @@
 {
 	"name": "@sactory/i18n",
-	"version": "0.12.0",
+	"version": "0.13.0",
 	"description": "Internationalization utilities for Sactory applications",
 	"scripts": {
 		"dist": "gulp dist"
@@ -16,7 +16,7 @@
 	},
 	"homepage": "https://github.com/sactory/sactory-i18n#readme",
 	"devDependencies": {
-		"@sactory/dev": "^0.6.1",
+		"@sactory/dev": "^0.7.0",
 		"gulp": "^4.0.2"
 	}
 }

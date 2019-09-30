@@ -56,19 +56,18 @@ Sactory.addWidget("lang", function(attrs){
 	const args = attrs.args;
 	delete attrs.args;
 
-	const deps = [instance.locale];
-	if(args) {
-		for(let key in args) {
-			const arg = args[key];
-			if(Sactory.isObservable(arg)) {
-				deps.push(arg);
-			}
+	const dargs = args ? (& => {
+		const unmapped = *?args;
+		const mapped = {};
+		for(let key in unmapped) {
+			mapped[key] = *?(unmapped[key]);
 		}
-	}
+		return mapped;
+	}) : {};
 
 	return <?#document-fragment>
 		foreach(attrs as name: attr) {
-			const value = Sactory.bo(() => instance.get(attr, args), deps);
+			const value = & => instance.get(attr, *?dargs, instance.*locale);
 			if(name == "text" || name == "html") {
 				<:element ~[name]=value />
 			} else {
